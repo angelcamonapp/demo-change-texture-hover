@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Frame Boilerplate</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+<body>
+    <!-- Custom component -->
+    <script>
+        AFRAME.registerComponent('custom-texture', {
+            init: function () {
+                // Change texture on mouseenter
+                this.el.addEventListener('mouseenter', () => {
+                    console.log(this.el)
+                    // Set new texture source
+                    this.el.setAttribute('src', '#texture2');
+                });
+
+                this.el.addEventListener('mouseleave', () => {
+                    console.log(this.el)
+                    // Set new texture source
+                    this.el.setAttribute('src', '#texture1');
+                });
+            }
+        });
+        </script>
+    <a-scene>
+        <!-- Assets -->
+        <a-assets>
+            <img id="texture1" src="add-button.webp" alt="Texture 1">
+            <img id="texture2" src="add-button_hover.webp" alt="Texture 2">
+        </a-assets>
+
+        <a-camera id="camera" camera orbit-reset look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" wasd-controls-enabled="false"
+            raycaster="objects: .clickable; recursive: true"
+            orbit-controls="target: 0 1.5 0; minDistance: 2; maxDistance: 4; initialPosition: 1.7 -0.5 2.3; rotateSpeed: 0.5; enablePan: false; cursor: 0 0 0; minPolarAngle: 10">
+        </a-camera>
+
+        <!-- Image entity -->
+        <a-plane src="#texture1" class="clickable" position="0 1.6 -3" width="2" height="2" material="transparent:true" custom-texture></a-plane>
+    </a-scene>
+</body>
+</html>
